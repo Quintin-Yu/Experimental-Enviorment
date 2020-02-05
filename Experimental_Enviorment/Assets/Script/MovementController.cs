@@ -5,6 +5,7 @@ using UnityEngine;
 public class MovementController : MonoBehaviour
 {
     public float speed;
+    public float rotationSpeed;
     private Vector3 velocity;
 
     private void Start()
@@ -14,7 +15,7 @@ public class MovementController : MonoBehaviour
 
     private void Update()
     {
-        transform.position += velocity * Time.deltaTime;
+        transform.position += transform.rotation * velocity * Time.deltaTime;
 
         Movement();
     }
@@ -32,6 +33,19 @@ public class MovementController : MonoBehaviour
         else
         {
             velocity = Vector3.zero;
+        }
+
+        Rotate();
+    }
+
+    private void Rotate()
+    {
+        if (Input.GetKey(KeyCode.A))
+        {
+            transform.Rotate(0, -rotationSpeed * Time.deltaTime, 0, Space.World);
+        } else if (Input.GetKey(KeyCode.D))
+        {
+            transform.Rotate(0, rotationSpeed * Time.deltaTime, 0, Space.World);
         }
     }
 }
